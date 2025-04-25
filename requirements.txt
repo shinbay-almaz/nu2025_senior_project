@@ -1,5 +1,15 @@
 pyusb==1.0.2
 click==7.0
 sounddevice
-numpy
+numpy<2
 pvrhino
+tflite-runtime
+RPLCD
+Pillow
+opencv-python
+pyttsx3
+simpleaudio
+sounddevice
+gpiozero
+pyserial
+

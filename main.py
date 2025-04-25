@@ -18,7 +18,7 @@ from gpiozero import AngularServo         # keeps your import even if unused
 from tuning import Tuning                 # ReSpeaker 4‑mic array tuning
 
 # face‑recognition worker (unchanged)
-from facerecog.recognize_face_old import FaceRecognitionThread
+from face_recognizer import FaceRecognitionThread
 
 # ───────────────────────── serial & HW init ──────────────────────────────
 arduino = serial.Serial('/dev/ttyUSB0', 115200)
@@ -50,7 +50,7 @@ def rotate_to_voice():
 # ─────────────────────────── Rhino ───────────────────────────────────────
 rhino = pvrhino.create(
     access_key="zd6XrSoEhar44iE2FYMwhM+402s7rR1wkpn5UbyMivpCuG98eq5IFA==",
-    context_path=str(Path("model") / "apr_17.rhn"),
+    context_path=str(Path("models") / "apr_17.rhn"),
 )
 RHINO_RATE   = rhino.sample_rate        # 16 000 Hz
 RHINO_FRAMES = rhino.frame_length       # 512 samples
