@@ -9,16 +9,15 @@ Usage examples
   $ python3 walle.py manual
 """
 # ───────────────────────── stdlib ─────────────────────────────────────────
-import sys, time, threading, queue, usb.core, usb.util, serial
+import sys, time, threading, queue, usb.core, serial
 from pathlib import Path
 
 # ───────────────────────── 3rd‑party ─────────────────────────────────────
 import numpy as np, simpleaudio as sa, sounddevice as sd, pvrhino
-from gpiozero import AngularServo         # keeps your import even if unused
 from tuning import Tuning                 # ReSpeaker 4‑mic array tuning
 
 # face‑recognition worker (unchanged)
-from face_recognizer import FaceRecognitionThread
+from face.face_recognizer import FaceRecognitionThread
 
 # ───────────────────────── serial & HW init ──────────────────────────────
 arduino = serial.Serial('/dev/ttyUSB0', 115200)
@@ -26,8 +25,9 @@ time.sleep(2)
 
 dev = usb.core.find(idVendor=0x2886, idProduct=0x0018)      # ReSpeaker 4‑mic
 
-TIME_PER_CYCLE = 4.75
-CYCLE_ANGLE    = 360
+# [WARNING]: time per cycle depends on the motor speed. It might need to be adjusted manually.
+TIME_PER_CYCLE = 4.75           # seconds for 360 degrees
+CYCLE_ANGLE    = 360           
 
 def send_command(cmd: str):
     arduino.write(cmd.encode())
